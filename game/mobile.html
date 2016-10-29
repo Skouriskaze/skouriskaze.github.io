@@ -43,6 +43,8 @@
             var touch = e.touches[0];
             var x = touch.pageX;
             var y = touch.pageY;
+
+            ctx.fillRect(x, y, 30, 30);
         }
 
         document.querySelector('body').addEventListener('touchStart', touchStart, false);
