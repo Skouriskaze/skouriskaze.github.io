@@ -6,12 +6,6 @@
     <meta name="viewport" content="width=720">
     <title> Jesse's Bootstrap </title>
 
-    <script src="../jquery-3.1.1.js"></script>
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-
     <style>
         canvas {
             margin-left: auto;
@@ -22,8 +16,6 @@
 
 </head>
 <body>
-    <div class="page-header container"><h1>Mobile Game</h1></div>
-
     <div> 
         <canvas id="joystick1" width="720" height="720"> </canvas>
     </div>
@@ -43,12 +35,13 @@
         function touchStart(e) {
             e.preventDefault();
 
-            var canvas = e.target;
-            var ctx = canvas.getContext("2d");
-            ctx.fillStyle = "blue";
+            //var canvas = e.target;
+            //var ctx = canvas.getContext("2d");
+            //ctx.fillStyle = "blue";
+            ctx1.fillStyle = "blue";
             var touch = e.touches[0];
-            var x = canvas.offsetLeft - touch.pageY;
-            var y = canvas.offsetTop - touch.pageY;
+            var x = touch.pageY;
+            var y = touch.pageY;
 
             ctx.fillRect(x, y, 30, 30);
         }
