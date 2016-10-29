@@ -25,13 +25,25 @@
 
     <script>
         var joystick1 = document.getElementById("joystick1");
-        var joystick1 = document.getElementById("joystick2");
+        var joystick2 = document.getElementById("joystick2");
         var ctx1 = joystick1.getContext("2d");
         var ctx2 = joystick2.getContext("2d");
 
         joystick1.width = document.body.clientWidth;
-        joystick1.height = document.body.clientHeight;
+        joystick1.height = document.body.clientHeight / 2;
+        joystick2.width = document.body.clientWidth;
+        joystick2.height = document.body.clientHeight / 2;
 
+        function onClick(e) {
+            var x = e.clientX - joystick1.offsetLeft - 15;
+            var y = e.clientY - joystick1.offsetTop - 15;
+            ctx1.fillStyle = "blue";
+
+            console.log(x);
+            console.log(y);
+
+            ctx1.fillRect(x, y, 30, 30);
+        }
         function touchStart(e) {
             e.preventDefault();
 
@@ -43,10 +55,11 @@
             var x = touch.pageY;
             var y = touch.pageY;
 
-            ctx.fillRect(x, y, 30, 30);
+            ctx1.fillRect(x, y, 30, 30);
         }
 
         document.querySelector('body').addEventListener('touchstart', touchStart, false);
+        document.querySelector('body').addEventListener('click', onClick, false);
     </script>
 </body>
 </html>
