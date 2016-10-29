@@ -23,9 +23,6 @@
 </head>
 <body>
     <div class="page-header container"><h1>Mobile Game</h1></div>
-    <div class="container">
-            Checking
-    </div>
 
     <div> 
         <canvas id="myCanvas" width="720" height="720"> </canvas>
@@ -37,6 +34,11 @@
 
         ctx.fillStyle = "blue";
         ctx.fillRect(50, 40, 100, 30);
+        
+        function init() {
+            canvas.width = document.body.clientWidth;
+            canvas.height = document.body.clientHeight;
+        }
 
         function touchStart(e) {
             e.preventDefault();
