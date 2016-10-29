@@ -25,26 +25,30 @@
     <div class="page-header container"><h1>Mobile Game</h1></div>
 
     <div> 
-        <canvas id="myCanvas" width="720" height="720"> </canvas>
+        <canvas id="joystick1" width="720" height="720"> </canvas>
+    </div>
+    <div> 
+        <canvas id="joystick2" width="720" height="720"> </canvas>
     </div>
 
     <script>
-        var canvas = document.getElementById("myCanvas");
-        var ctx = canvas.getContext("2d");
+        var joystick1 = document.getElementById("joystick1");
+        var joystick1 = document.getElementById("joystick2");
+        var ctx1 = joystick1.getContext("2d");
+        var ctx2 = joystick2.getContext("2d");
 
-        ctx.fillStyle = "blue";
-        ctx.fillRect(50, 40, 100, 30);
-        
-        function init() {
-            canvas.width = document.body.clientWidth;
-            canvas.height = document.body.clientHeight;
-        }
+        joystick1.width = document.body.clientWidth;
+        joystick1.height = document.body.clientHeight;
 
         function touchStart(e) {
             e.preventDefault();
+
+            var canvas = e.target;
+            var ctx = canvas.getContext("2d");
+            ctx.fillStyle = "blue";
             var touch = e.touches[0];
-            var x = touch.pageX;
-            var y = touch.pageY;
+            var x = canvas.offsetLeft - touch.pageY;
+            var y = canvas.offsetTop - touch.pageY;
 
             ctx.fillRect(x, y, 30, 30);
         }
