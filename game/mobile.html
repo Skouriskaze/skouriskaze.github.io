@@ -28,9 +28,9 @@
         var ctx1 = joystick1.getContext("2d");
         //var ctx2 = joystick2.getContext("2d");
 
-        joystick1.width = document.body.clientWidth;
-        joystick1.height = document.body.clientHeight;
-        //joystick2.width = document.body.clientWidth;
+        joystick1.width = window.screen.availWidth;
+        joystick1.height = window.screen.availHeight;
+        //joystick2.width = window.screen.clientWidth;
         //joystick2.height = document.body.clientHeight / 2;
 
         function onClick(e) {
