@@ -19,22 +19,19 @@
     <div> 
         <canvas id="joystick1" width="720" height="720"> </canvas>
     </div>
-    <div> 
-        <canvas id="joystick2" width="720" height="720"> </canvas>
-    </div>
 
     <script>
         const square_width = 30;
 
         var joystick1 = document.getElementById("joystick1");
-        var joystick2 = document.getElementById("joystick2");
+//        var joystick2 = document.getElementById("joystick2");
         var ctx1 = joystick1.getContext("2d");
-        var ctx2 = joystick2.getContext("2d");
+        //var ctx2 = joystick2.getContext("2d");
 
         joystick1.width = document.body.clientWidth;
-        joystick1.height = document.body.clientHeight / 2;
-        joystick2.width = document.body.clientWidth;
-        joystick2.height = document.body.clientHeight / 2;
+        joystick1.height = document.body.clientHeight;
+        //joystick2.width = document.body.clientWidth;
+        //joystick2.height = document.body.clientHeight / 2;
 
         function onClick(e) {
             var x = e.clientX - joystick1.offsetLeft - 15;
