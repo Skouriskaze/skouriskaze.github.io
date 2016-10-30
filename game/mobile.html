@@ -24,6 +24,8 @@
     </div>
 
     <script>
+        const square_width = 30;
+
         var joystick1 = document.getElementById("joystick1");
         var joystick2 = document.getElementById("joystick2");
         var ctx1 = joystick1.getContext("2d");
@@ -42,7 +44,7 @@
             console.log(x);
             console.log(y);
 
-            ctx1.fillRect(x, y, 30, 30);
+            ctx1.fillRect(x, y, square_width, square_width);
         }
         function touchStart(e) {
             e.preventDefault();
@@ -52,10 +54,10 @@
             //ctx.fillStyle = "blue";
             ctx1.fillStyle = "blue";
             var touch = e.touches[0];
-            var x = touch.pageX;
-            var y = touch.pageY;
+            var x = touch.pageX - square_width / 2;
+            var y = touch.pageY - square_width / 2;
 
-            ctx1.fillRect(x, y, 30, 30);
+            ctx1.fillRect(x, y, square_width, square_width);
         }
 
         document.querySelector('body').addEventListener('touchstart', touchStart, false);
