@@ -24,31 +24,28 @@
         const square_width = 30;
 
         var joystick1 = document.getElementById("joystick1");
-//        var joystick2 = document.getElementById("joystick2");
         var ctx1 = joystick1.getContext("2d");
-        //var ctx2 = joystick2.getContext("2d");
+        var sprites = [];
+        var img = new Image();
+        img.src = 'game/crosshair.png'
 
         joystick1.width = window.screen.availWidth;
         joystick1.height = window.screen.availHeight;
-        //joystick2.width = window.screen.clientWidth;
-        //joystick2.height = document.body.clientHeight / 2;
 
         function onClick(e) {
-            var x = e.clientX - joystick1.offsetLeft - 15;
-            var y = e.clientY - joystick1.offsetTop - 15;
+            var x = e.clientX - joystick1.offsetLeft - square_width / 2;
+            var y = e.clientY - joystick1.offsetTop - square_width / 2;
             ctx1.fillStyle = "blue";
 
             console.log(x);
             console.log(y);
 
-            ctx1.fillRect(x, y, square_width, square_width);
+            //ctx1.fillRect(x, y, square_width, square_width);
+            
         }
         function touchStart(e) {
             e.preventDefault();
 
-            //var canvas = e.target;
-            //var ctx = canvas.getContext("2d");
-            //ctx.fillStyle = "blue";
             ctx1.fillStyle = "blue";
             var touch = e.touches[0];
             var x = touch.pageX - square_width / 2;
@@ -56,9 +53,17 @@
 
             ctx1.fillRect(x, y, square_width, square_width);
         }
+        
+        function touchEnd(e) {
+        }
 
-        document.querySelector('body').addEventListener('touchstart', touchStart, false);
-        document.querySelector('body').addEventListener('click', onClick, false);
+        function gameLoop() {
+            
+        }
+
+        joystick1.addEventListener('touchstart', touchStart, false);
+        joystick1.addEventListener('touchend', touchEnd, false);
+        joystick1.addEventListener('click', onClick, false);
     </script>
 </body>
 </html>
