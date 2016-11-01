@@ -60,8 +60,9 @@
         const square_width = 16;
 
 
-        var crosshair = null;
-        var joystick = null;
+        var joystick = new Joystick();
+        //var crosshair = null;
+        //var joystick = null;
 
         ctx1.canvas.height = window.innerHeight * 99 / 100;
 
@@ -87,68 +88,56 @@
             var x = e.pageX - joystick1.offsetLeft;
             var y = e.pageY - joystick1.offsetTop;
 
-            console.log(x);
-            console.log(y);
 
-            crosshair = new Sprite('res/crosshair.png', (x - 16 / 2), y - 16 / 2);
-            joystick = new Sprite('res/joystick.png', (x - 100 / 2), y - 100 / 2);
-            //crosshair.render(ctx1);
+            joystick.extractTouch(e);
+            joystick.makeJoystick(x, y);
         }
         function touchStart(e) {
+            console.log("Touched");
             e.preventDefault();
 
-            ctx1.fillStyle = "blue";
             var touch = e.touches[0];
             var x = touch.pageX - joystick1.offsetLeft;
             var y = touch.pageY - joystick1.offsetTop;
 
-            crosshair = new Sprite('res/crosshair.png', (x - 16 / 2), y - 16 / 2);
-            joystick = new Sprite('res/joystick.png', (x - 100 / 2), y - 100 / 2);
+            joystick.extractTouch(touch);
+            joystick.makeJoystick(x, y);
         }
 
         function onMouseMove(e) {
-            if (null != joystick) {
-                joystick.posX = e.pageX - 100 / 2;
-                joystick.posY = e.pageY - 100 / 2;
-            }
+            joystick.extractTouch(e);
         }
 
         function onTouchMove(e) {
             var touch = e.touches[0];
-            if (null != joystick) {
-                joystick.posX = touch.pageX - 100 / 2;
-                joystick.posY = touch.pageY - 100 / 2;
-            }
+            joystick.extractTouch(touch);
         }
         
         function touchEnd(e) {
             console.log("Ended");
-            crosshair = null;
-            joystick = null;
+            joystick.destroyJoystick();
         }
 
         function onUp(e) {
-            crosshair = null;
-            joystick = null;
+            joystick.destroyJoystick();
         }
 
         function gameLoop() {
+            update();
             render();
             requestAnimFrame(gameLoop);
+        }
+
+        function update() {
+            joystick.update();
         }
 
         function render() {
             ctx1.fillStyle = "white";
             ctx1.rect(0, 0, joystick1.width, joystick1.height);
             ctx1.fill();
-            //console.log(crosshair);
-            if (null != joystick) {
-                joystick.render(ctx1);
-            }
-            if (null != crosshair) {
-                //console.log("Crosshair good");
-                crosshair.render(ctx1);
-            }
+
+            joystick.render(ctx1);
         }
 
     </script>
