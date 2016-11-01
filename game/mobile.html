@@ -12,6 +12,9 @@
             margin-right: auto;
             border: 1px solid black;
         }
+        html, body {
+            margin: 0px;
+        }
     </style>
 
     <script type="text/javascript" src="sprite.js"> </script>
@@ -48,8 +51,8 @@
 
         var crosshair = null;
 
-        joystick1.width = window.screen.availWidth;
-        joystick1.height = window.screen.availHeight;
+        joystick1.width = window.innerWidth - 5;
+        joystick1.height = window.innerHeight - 5;
 
         joystick1.addEventListener('touchstart', touchStart, false);
         joystick1.addEventListener('touchend', touchEnd, false);
