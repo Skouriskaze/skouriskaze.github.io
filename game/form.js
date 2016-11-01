@@ -1,3 +1,5 @@
+var username;
+
 window.onload = function() {
     var url = document.location.href,
         params = url.split('?')[1].split('&'),
@@ -7,6 +9,5 @@ window.onload = function() {
         data[tmp[0]] = tmp[1];
     }
 
-    var div = document.getElementById("Name");
-    div.innerHTML = data["username"];
+    username = data["username"];
 }

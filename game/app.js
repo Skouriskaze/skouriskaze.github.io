@@ -108,8 +108,14 @@ function gameLoop() {
 }
 
 function update() {
-    leftJoystick.update();
-    rightJoystick.update();
+    if (leftJoystick.instantiated) {
+        leftJoystick.update();
+        setJoystickData("left", leftJoystick);
+    }
+    if (rightJoystick.instantiated) {
+        rightJoystick.update();
+        setJoystickData("right", rightJoystick);
+    }
 }
 
 function render() {

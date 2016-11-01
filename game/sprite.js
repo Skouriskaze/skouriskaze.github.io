@@ -82,19 +82,24 @@ Joystick.prototype.render = function(ctx) {
 Joystick.prototype.update = function() {
     if (this.instantiated) {
 
-        var jVec = new Vector(this.touchX, this.touchY);
-        var tVec = new Vector(this.posX, this.posY);
-        var dVec = Vector.sub(jVec, tVec);
-        if (dVec.magnitude > 100 / 3) {
-            var nVec = Vector.setMagnitude(dVec, 100 / 3);
-            this.joystick.posX = tVec.x + nVec.x;
-            this.joystick.posY = tVec.y + nVec.y;
-        } else {
-            this.joystick.posX = this.touchX;
-            this.joystick.posY = this.touchY;
-        }
+        var dVec = this.getVector();
+
+        this.joystick.posX = this.posX + dVec.x;
+        this.joystick.posY = this.posY + dVec.y;
     }
 };
+
+Joystick.prototype.getVector = function() {
+    var jVec = new Vector(this.touchX, this.touchY);
+    var tVec = new Vector(this.posX, this.posY);
+    var dVec = Vector.sub(jVec, tVec);
+
+    if (dVec.magnitude > 100 / 3) {
+        return Vector.setMagnitude(dVec, 100 / 3);
+    }
+
+    return dVec;
+}
 
 Joystick.prototype.makeJoystick = function(id, x, y) {
     this.touchId = id;
