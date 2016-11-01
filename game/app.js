@@ -116,6 +116,8 @@ function update() {
         rightJoystick.update();
         setJoystickData("right", rightJoystick);
     }
+
+    setLastUsed();
 }
 
 function render() {

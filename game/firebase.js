@@ -10,10 +10,16 @@ firebase.initializeApp(config);
 
 var database = firebase.database();
 
-setJoystickData = function(which, joystick) {
+function setJoystickData(which, joystick) {
     var vec = joystick.getVector();
     database.ref(username + "/" + which).set({ 
         "x" : vec.x,
         "y" : vec.y
     });
 };
+
+function setLastUsed() {
+    if (username != undefined && username.trim() != "") {
+        database.ref(username + "/last").set(Date.now());
+    }
+}
