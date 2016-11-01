@@ -31,9 +31,11 @@ function onClick(e) {
 
     //Create a new joystick
     if (!leftJoystick.instantiated && x < 720 / 2) {
+        leftJoystick.setInitialTouch(e);
         leftJoystick.extractTouch(e);
         leftJoystick.makeJoystick(-1, x, y);
     } else if (!rightJoystick.instantiated && x > 720 / 2) {
+        rightJoystick.setInitialTouch(e);
         rightJoystick.extractTouch(e);
         rightJoystick.makeJoystick(-1, x, y);
     }
@@ -49,9 +51,11 @@ function touchStart(e) {
         var y = touch.pageY - canvas.offsetTop;
 
         if (!leftJoystick.instantiated && x < 720 / 2) {
+            leftJoystick.setInitialTouch(touch);
             leftJoystick.extractTouch(touch);
             leftJoystick.makeJoystick(touch.identifier, x, y);
         } else if (!rightJoystick.instantiated && x > 720 / 2) {
+            rightJoystick.setInitialTouch(touch);
             rightJoystick.extractTouch(touch);
             rightJoystick.makeJoystick(touch.identifier, x, y);
         }
