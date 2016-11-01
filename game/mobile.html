@@ -67,6 +67,7 @@
 
         joystick1.addEventListener('touchstart', touchStart, false);
         joystick1.addEventListener('touchend', touchEnd, false);
+        joystick1.addEventListener('touchmove', onTouchMove, false);
         joystick1.addEventListener('mousedown', onClick, false);
         joystick1.addEventListener('mousemove', onMouseMove, false);
         joystick1.addEventListener('mouseup', onUp, false);
@@ -106,10 +107,17 @@
         }
 
         function onMouseMove(e) {
-            console.log("Moused");
             if (null != joystick) {
                 joystick.posX = e.pageX - 100 / 2;
                 joystick.posY = e.pageY - 100 / 2;
+            }
+        }
+
+        function onTouchMove(e) {
+            var touch = e.touches[0];
+            if (null != joystick) {
+                joystick.posX = touch.pageX - 100 / 2;
+                joystick.posY = touch.pageY - 100 / 2;
             }
         }
         
