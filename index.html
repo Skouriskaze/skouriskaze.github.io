@@ -77,14 +77,21 @@
     </div>
   </div>
 
-  <div class="container text-center">
-        <a href="game/desktop.html" role="button" class="btn btn-primary">
-            Desktop
-        </a>
-        <a href="game/mobile.html" role="button" class="btn btn-primary">
-            Mobile
-        </a>
-  </div>
+  <form class="container" action="game/mobile.html" method="GET">
+      <div class="form-group">
+          <h1> Form! </h1>
+          <label for="Username">Username: </label> 
+          <input type="name" class="form-control" id="username" name="username" placeholder="Username"/>
+          <label for="PIN"> PIN </label>
+          <input type="number" class="form-control" id="pin" name="pin" placeholder="PIN"/>
+        <button role="button" class="btn btn-primary">
+            Create
+        </button>
+        <button role="button" class="btn btn-primary">
+            Login
+        </button>
+      </div>
+  </form>
 </body>
 
 </html>
