@@ -37,8 +37,8 @@
             };
         })();
 
-        var joystick1 = document.getElementById("joystick1");
-        var ctx1 = joystick1.getContext("2d");
+        var canvas = document.getElementById("joystick1");
+        var ctx1 = canvas.getContext("2d");
         var sprites = [];
 
         function loadImage(paths) {
@@ -52,26 +52,22 @@
         }
 
         window.addEventListener('resize', function() {
-                console.log("Resized");
-                ctx1.canvas.height = window.innerHeight * 99 / 100;
-                ctx1.canvas.width = 720;
-            });
+            console.log("Resized");
+            ctx1.canvas.height = window.innerHeight * 99 / 100;
+            ctx1.canvas.width = 720;
+        });
 
-        const square_width = 16;
-
-
-        var joystick = new Joystick();
-        //var crosshair = null;
-        //var joystick = null;
+        var leftJoystick = new Joystick();
+        var rightJoystick = new Joystick();
 
         ctx1.canvas.height = window.innerHeight * 99 / 100;
 
-        joystick1.addEventListener('touchstart', touchStart, false);
-        joystick1.addEventListener('touchend', touchEnd, false);
-        joystick1.addEventListener('touchmove', onTouchMove, false);
-        joystick1.addEventListener('mousedown', onClick, false);
-        joystick1.addEventListener('mousemove', onMouseMove, false);
-        joystick1.addEventListener('mouseup', onUp, false);
+        canvas.addEventListener('touchstart', touchStart, false);
+        canvas.addEventListener('touchend', touchEnd, false);
+        canvas.addEventListener('touchmove', onTouchMove, false);
+        canvas.addEventListener('mousedown', onClick, false);
+        canvas.addEventListener('mousemove', onMouseMove, false);
+        canvas.addEventListener('mouseup', onUp, false);
 
         window.requestAnimFrame = function () {
             return window.requestAnimationFrame ||
@@ -85,41 +81,69 @@
         loadImage(['res/crosshair.png', 'res/joystick.png']);
 
         function onClick(e) {
-            var x = e.pageX - joystick1.offsetLeft;
-            var y = e.pageY - joystick1.offsetTop;
+            var x = e.pageX - canvas.offsetLeft;
+            var y = e.pageY - canvas.offsetTop;
 
 
-            joystick.extractTouch(e);
-            joystick.makeJoystick(x, y);
+            if (!leftJoystick.instantiated && x < 720 / 2) {
+                leftJoystick.extractTouch(e);
+                leftJoystick.makeJoystick(-1, x, y);
+            } else if (!rightJoystick.instantiated && x > 720 / 2) {
+                rightJoystick.extractTouch(e);
+                rightJoystick.makeJoystick(-1, x, y);
+            }
         }
         function touchStart(e) {
             console.log("Touched");
             e.preventDefault();
 
-            var touch = e.touches[0];
-            var x = touch.pageX - joystick1.offsetLeft;
-            var y = touch.pageY - joystick1.offsetTop;
+            for (var i = 0; i < e.changedTouches.length; i++) {
+                var touch = e.changedTouches[i];
+                console.log(touch.identifier);
+                var x = touch.pageX - canvas.offsetLeft;
+                var y = touch.pageY - canvas.offsetTop;
 
-            joystick.extractTouch(touch);
-            joystick.makeJoystick(x, y);
+                if (!leftJoystick.instantiated && x < 720 / 2) {
+                    leftJoystick.extractTouch(touch);
+                    leftJoystick.makeJoystick(touch.identifier, x, y);
+                } else if (!rightJoystick.instantiated && x > 720 / 2) {
+                    rightJoystick.extractTouch(touch);
+                    rightJoystick.makeJoystick(touch.identifier, x, y);
+                }
+            }
         }
 
         function onMouseMove(e) {
-            joystick.extractTouch(e);
+            leftJoystick.extractTouch(e);
+            rightJoystick.extractTouch(e);
         }
 
         function onTouchMove(e) {
-            var touch = e.touches[0];
-            joystick.extractTouch(touch);
+            for (var i = 0; i < e.touches.length; i++) {
+                var touch = e.touches[i];
+                if (touch.identifier == leftJoystick.touchId) {
+                    leftJoystick.extractTouch(touch);
+                } else if (touch.identifier == rightJoystick.touchId) {
+                    rightJoystick.extractTouch(touch);
+                }
+            }
         }
         
         function touchEnd(e) {
             console.log("Ended");
-            joystick.destroyJoystick();
+            for (var i = 0; i < e.changedTouches.length; i++) {
+                var touch = e.changedTouches[i];
+                if (touch.identifier == leftJoystick.touchId) {
+                    leftJoystick.destroyJoystick();
+                } else if (touch.identifier == rightJoystick.touchId) {
+                    rightJoystick.destroyJoystick();
+                }
+            }
         }
 
         function onUp(e) {
-            joystick.destroyJoystick();
+            leftJoystick.destroyJoystick();
+            rightJoystick.destroyJoystick();
         }
 
         function gameLoop() {
@@ -129,15 +153,17 @@
         }
 
         function update() {
-            joystick.update();
+            leftJoystick.update();
+            rightJoystick.update();
         }
 
         function render() {
             ctx1.fillStyle = "white";
-            ctx1.rect(0, 0, joystick1.width, joystick1.height);
+            ctx1.rect(0, 0, canvas.width, canvas.height);
             ctx1.fill();
 
-            joystick.render(ctx1);
+            leftJoystick.render(ctx1);
+            rightJoystick.render(ctx1);
         }
 
     </script>

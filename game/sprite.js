@@ -13,10 +13,12 @@ Sprite.prototype.render = function(ctx) {
 
 
 var Joystick = function() {
+    this.touchId = -1;
     this.touchX = 0;
     this.touchY = 0;
     this.posX = 0;
     this.posY = 0;
+    this.instantiated = false;
     this.crosshair = null;
     this.joystick= null;
 }
@@ -27,26 +29,28 @@ Joystick.prototype.extractTouch = function(e) {
 }
 
 Joystick.prototype.render = function(ctx) {
-    if (null != this.joystick) {
+    if (this.instantiated) {
         this.joystick.render(ctx);
-    }
-    if (null != this.crosshair) {
         this.crosshair.render(ctx);
     }
 }
 Joystick.prototype.update = function() {
-    if (null != this.joystick) {
+    if (this.instantiated) {
         this.joystick.posX = this.touchX;
         this.joystick.posY = this.touchY;
     }
 }
 
-Joystick.prototype.makeJoystick = function(x, y) {
+Joystick.prototype.makeJoystick = function(id, x, y) {
+    this.touchId = id;
     this.crosshair = new Sprite('res/crosshair.png', x, y, 16, 16);
     this.joystick = new Sprite('res/joystick.png', x, y, 100, 100);
+    this.instantiated = true;
 }
 
 Joystick.prototype.destroyJoystick = function() {
+    this.touchId = -1;
     this.crosshair = null;
     this.joystick= null;
+    this.instantiated = false;
 }
