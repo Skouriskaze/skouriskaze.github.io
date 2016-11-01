@@ -18,6 +18,7 @@
     </style>
 
     <script type="text/javascript" src="sprite.js"> </script>
+    <script type="text/javascript" src="resources.js"> </script>
 
 </head>
 <body>
@@ -26,33 +27,13 @@
     </div>
 
     <script>
-        var requestAnimFrame = (function(){
-            return window.requestAnimationFrame       ||
-            window.webkitRequestAnimationFrame ||
-            window.mozRequestAnimationFrame    ||
-            window.oRequestAnimationFrame      ||
-            window.msRequestAnimationFrame     ||
-            function(callback){
-                window.setTimeout(callback, 1000 / 60);
-            };
-        })();
 
         var canvas = document.getElementById("joystick1");
         var ctx1 = canvas.getContext("2d");
         var sprites = [];
 
-        function loadImage(paths) {
-            for (var i = 0; i < paths.length; i++) {
-                var img = new Image();
-                if (i == paths.length - 1) {
-                    img.onload = gameLoop;
-                }
-                img.src = paths[i];
-            }
-        }
 
         window.addEventListener('resize', function() {
-            console.log("Resized");
             ctx1.canvas.height = window.innerHeight * 99 / 100;
             ctx1.canvas.width = 720;
         });
@@ -69,16 +50,10 @@
         canvas.addEventListener('mousemove', onMouseMove, false);
         canvas.addEventListener('mouseup', onUp, false);
 
-        window.requestAnimFrame = function () {
-            return window.requestAnimationFrame ||
-                window.webkitRequestAnimationFrame ||
-                window.mozRequestAnimationFrame ||
-                function (callback) {
-                    window.setTimeout(callback, 1000 / 60)
-                };
-        }();
+        loadImage([
+                'res/crosshair.png',
+                'res/joystick.png']);
 
-        loadImage(['res/crosshair.png', 'res/joystick.png']);
 
         function onClick(e) {
             var x = e.pageX - canvas.offsetLeft;
@@ -94,12 +69,10 @@
             }
         }
         function touchStart(e) {
-            console.log("Touched");
             e.preventDefault();
 
             for (var i = 0; i < e.changedTouches.length; i++) {
                 var touch = e.changedTouches[i];
-                console.log(touch.identifier);
                 var x = touch.pageX - canvas.offsetLeft;
                 var y = touch.pageY - canvas.offsetTop;
 
@@ -130,7 +103,6 @@
         }
         
         function touchEnd(e) {
-            console.log("Ended");
             for (var i = 0; i < e.changedTouches.length; i++) {
                 var touch = e.changedTouches[i];
                 if (touch.identifier == leftJoystick.touchId) {
