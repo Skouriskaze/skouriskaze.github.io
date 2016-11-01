@@ -74,7 +74,7 @@
                 };
         }();
 
-        loadImage('crosshair.png');
+        loadImage('res/crosshair.png');
 
         function onClick(e) {
             var x = e.pageX - square_width / 2 - joystick1.offsetLeft;
@@ -83,7 +83,7 @@
             console.log(y);
             ctx1.fillStyle = "blue";
 
-            crosshair = new Sprite('crosshair.png', x, y);
+            crosshair = new Sprite('res/crosshair.png', x, y);
             //crosshair.render(ctx1);
         }
         function touchStart(e) {
@@ -94,7 +94,7 @@
             var x = touch.pageX - square_width / 2 - joystick1.offsetLeft;
             var y = touch.pageY - square_width / 2 - joystick1.offsetTop;
 
-            crosshair = new Sprite('crosshair.png', x, y);
+            crosshair = new Sprite('res/crosshair.png', x, y);
         }
         
         function touchEnd(e) {
