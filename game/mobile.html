@@ -41,10 +41,14 @@
         var ctx1 = joystick1.getContext("2d");
         var sprites = [];
 
-        function loadImage(path) {
-            var img = new Image();
-            img.onload = gameLoop;
-            img.src = path;
+        function loadImage(paths) {
+            for (var i = 0; i < paths.length; i++) {
+                var img = new Image();
+                if (i == paths.length - 1) {
+                    img.onload = gameLoop;
+                }
+                img.src = paths[i];
+            }
         }
 
         window.addEventListener('resize', function() {
@@ -57,12 +61,14 @@
 
 
         var crosshair = null;
+        var joystick = null;
 
         ctx1.canvas.height = window.innerHeight * 99 / 100;
 
         joystick1.addEventListener('touchstart', touchStart, false);
         joystick1.addEventListener('touchend', touchEnd, false);
         joystick1.addEventListener('mousedown', onClick, false);
+        joystick1.addEventListener('mousemove', onMouseMove, false);
         joystick1.addEventListener('mouseup', onUp, false);
 
         window.requestAnimFrame = function () {
@@ -74,16 +80,17 @@
                 };
         }();
 
-        loadImage('res/crosshair.png');
+        loadImage(['res/crosshair.png', 'res/joystick.png']);
 
         function onClick(e) {
-            var x = e.pageX - square_width / 2 - joystick1.offsetLeft;
-            var y = e.pageY - square_width / 2 - joystick1.offsetTop;
+            var x = e.pageX - joystick1.offsetLeft;
+            var y = e.pageY - joystick1.offsetTop;
+
             console.log(x);
             console.log(y);
-            ctx1.fillStyle = "blue";
 
-            crosshair = new Sprite('res/crosshair.png', x, y);
+            crosshair = new Sprite('res/crosshair.png', (x - 16 / 2), y - 16 / 2);
+            joystick = new Sprite('res/joystick.png', (x - 100 / 2), y - 100 / 2);
             //crosshair.render(ctx1);
         }
         function touchStart(e) {
@@ -91,19 +98,30 @@
 
             ctx1.fillStyle = "blue";
             var touch = e.touches[0];
-            var x = touch.pageX - square_width / 2 - joystick1.offsetLeft;
-            var y = touch.pageY - square_width / 2 - joystick1.offsetTop;
+            var x = touch.pageX - joystick1.offsetLeft;
+            var y = touch.pageY - joystick1.offsetTop;
 
-            crosshair = new Sprite('res/crosshair.png', x, y);
+            crosshair = new Sprite('res/crosshair.png', (x - 16 / 2), y - 16 / 2);
+            joystick = new Sprite('res/joystick.png', (x - 100 / 2), y - 100 / 2);
+        }
+
+        function onMouseMove(e) {
+            console.log("Moused");
+            if (null != joystick) {
+                joystick.posX = e.pageX - 100 / 2;
+                joystick.posY = e.pageY - 100 / 2;
+            }
         }
         
         function touchEnd(e) {
             console.log("Ended");
             crosshair = null;
+            joystick = null;
         }
 
         function onUp(e) {
             crosshair = null;
+            joystick = null;
         }
 
         function gameLoop() {
@@ -116,6 +134,9 @@
             ctx1.rect(0, 0, joystick1.width, joystick1.height);
             ctx1.fill();
             //console.log(crosshair);
+            if (null != joystick) {
+                joystick.render(ctx1);
+            }
             if (null != crosshair) {
                 //console.log("Crosshair good");
                 crosshair.render(ctx1);
