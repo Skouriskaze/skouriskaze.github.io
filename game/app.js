@@ -1,17 +1,22 @@
 var canvas = document.getElementById("joystick1");
 var ctx1 = canvas.getContext("2d");
-var sprites = [];
 
+
+var leftJoystick = new Joystick();
+var rightJoystick = new Joystick();
+var color = getRandomColor();
+
+ctx1.canvas.height = window.innerHeight * 99 / 100;
 
 window.addEventListener('resize', function() {
     ctx1.canvas.height = window.innerHeight * 99 / 100;
     ctx1.canvas.width = 720;
 });
 
-var leftJoystick = new Joystick();
-var rightJoystick = new Joystick();
+window.onload = function() {
+    setColor(color);
+}
 
-ctx1.canvas.height = window.innerHeight * 99 / 100;
 
 canvas.addEventListener('touchstart', touchStart, false);
 canvas.addEventListener('touchend', touchEnd, false);
@@ -122,7 +127,7 @@ function update() {
 
 function render() {
     //Draw background
-    ctx1.fillStyle = "white";
+    ctx1.fillStyle = color;
     ctx1.rect(0, 0, canvas.width, canvas.height);
     ctx1.fill();
 
