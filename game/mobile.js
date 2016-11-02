@@ -110,12 +110,12 @@ function gameLoop() {
 function update() {
     if (leftJoystick.instantiated) {
         leftJoystick.update();
-        setJoystickData("left", leftJoystick);
     }
     if (rightJoystick.instantiated) {
         rightJoystick.update();
-        setJoystickData("right", rightJoystick);
     }
+    setJoystickData("left", leftJoystick);
+    setJoystickData("right", rightJoystick);
 
     setLastUsed();
 }
