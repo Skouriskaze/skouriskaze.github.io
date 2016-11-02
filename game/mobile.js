@@ -4,8 +4,6 @@ var ctx1 = canvas.getContext("2d");
 
 var leftJoystick = new Joystick();
 var rightJoystick = new Joystick();
-var color = getRandomColor();
-setColor(color);
 
 ctx1.canvas.height = window.innerHeight * 99 / 100;
 

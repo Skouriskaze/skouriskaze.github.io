@@ -29,9 +29,9 @@ function setColor(color) {
 }
 
 function setupReader(func) {
-    var ret = {};
-    database.ref(username).once('value').then(function (snapshot) {
-        ret["color"] = snapshot.val().color;
-    });
-    return ret;
+    database.ref(username).once('value').then(func);
+}
+
+function addReader(func) {
+    database.ref(username).on('value', func);
 }

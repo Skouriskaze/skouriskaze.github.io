@@ -19,9 +19,8 @@
 
     <script src="https://www.gstatic.com/firebasejs/3.5.3/firebase.js"></script>
 
-    <script type="text/javascript" src="sprite.js"> </script>
     <script type="text/javascript" src="resources.js"> </script>
-    <script type="text/javascript" src="form.js"> </script>
+    <script type="text/javascript" src="objects.js"> </script>
     <script type="text/javascript" src="firebase.js"> </script>
 </head>
 <body>
@@ -37,14 +36,19 @@
             return check;
         };
         if (mobilecheck()) {
-            var scriptTag = document.createElement('script');
-            scriptTag.tyhpe = 'text/javascript';
-            scriptTag.src = 'app.js';
-            document.getElementsByTagName('head')[0].appendChild(scriptTag);
+            addScript('mobileObjects.js');
+            addScript('mobile.js');
+            addScript('mobileForm.js');
         } else {
+            addScript('desktopObjects.js');
+            addScript('desktop.js');
+            addScript('desktopForm.js');
+        }
+
+        function addScript(path) {
             var scriptTag = document.createElement('script');
-            scriptTag.tyhpe = 'text/javascript';
-            scriptTag.src = 'desktop.js';
+            scriptTag.type = 'text/javascript';
+            scriptTag.src = path;
             document.getElementsByTagName('head')[0].appendChild(scriptTag);
         }
     </script>

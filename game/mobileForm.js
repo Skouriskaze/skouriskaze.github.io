@@ -1,4 +1,5 @@
 var username;
+var color = getRandomColor();
 
 window.onload = function() {
     var url = document.location.href,
@@ -10,4 +11,5 @@ window.onload = function() {
     }
 
     username = data["username"];
+    setColor(color);
 }
