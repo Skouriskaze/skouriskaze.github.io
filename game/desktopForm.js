@@ -17,11 +17,11 @@ window.onload = function() {
 
     addReader(function(snapshot) {
         left = snapshot.val().left;
-        right= snapshot.val().right;
+        right = snapshot.val().right;
         player.leftX = left["x"];
         player.leftY = left["y"];
         player.rightX = right["x"];
-        player.rightY = left["y"];
+        player.rightY = right["y"];
     });
 
     player = new Player();
