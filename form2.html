@@ -1,0 +1,138 @@
+<html>
+
+<head>
+    <title> Google Sheets </title>
+    <script src="jquery-3.1.1.js"></script>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+    <script>
+        var sid = '1ERzheAMm7FHkQahv3F1GuSRMwGaWRfaIvmhD6Xt2Yc0';
+        var client_id = '124523498596-b5e7r6ruf2a94o6rf68jb3kadmofb41d.apps.googleusercontent.com';
+        var scopes = ["https://www.googleapis.com/auth/spreadsheets.readonly", "https://www.googleapis.com/auth/spreadsheets"];
+    
+        function checkAuth() {
+            gapi.auth.authorize(
+                {
+                    client_id: client_id,
+                    scope: scopes.join(' '),
+                    immediate: true,
+                }, handleAuthResult);
+        }
+
+        function handleAuthClick(event) {
+            console.log("Bang");
+            gapi.auth.authorize(
+                {
+                    client_id: client_id,
+                    scope: scopes.join(' '),
+                    immediate: false
+                }, handleAuthResult);
+            return false;
+        }
+
+        function handleAuthResult(authResult) {
+            if (authResult && !authResult.error) {
+                console.log("Yay authresult");
+                loadSheetsApi();
+            } else {
+                console.log("Ouch authresult");
+                //Error!
+            }
+        }
+
+        function loadSheetsApi() {
+            var discoveryUrl = 'https://sheets.googleapis.com/$discovery/rest?version=v4';
+            gapi.client.load(discoveryUrl).then(listMajors);
+        }
+
+        function listMajors() {
+            gapi.client.sheets.spreadsheets.values.get(
+                {
+                    spreadsheetId: sid,
+                    range: 'Signup!A1:B'
+                }).then(function(response) {
+                    clearPre();
+                    var range = response.result;
+                    if (range.values.length > 0) {
+                        for (i = 0; i < range.values.length; i++) {
+                            var row = range.values[i];
+                            appendPre(row[0] + ', ' + row[1]);
+                        }
+                    } else {
+                        appendPre("No data found");
+                    }
+
+                });
+        }
+
+        function clearPre() {
+            var pre = document.getElementById('output');
+            pre.innerHTML = '';
+        }
+
+        function appendPre(s) {
+            var pre = document.getElementById('output');
+            var textContent = document.createTextNode(s + '\n');
+            pre.appendChild(textContent);
+        }
+
+        function writeRow(event) {
+            var name = document.getElementById('name').value;
+            var major = document.getElementById('major').value;
+            gapi.client.sheets.spreadsheets.values.append(
+                {
+                    spreadsheetId: sid,
+                    range: 'Signup!A1:B',
+                    valueInputOption: 'RAW',
+                    values: 
+                    [
+                        [name, major]
+                    ]
+                }).then(listMajors);
+        }
+
+
+    </script>
+
+    <script>
+        window.addEventListener('load', setup);
+        function setup() {
+            var btnCreate = document.getElementById('btnCreate');
+            btnCreate.addEventListener('click', handleAuthClick);
+            var btnAppend = document.getElementById('btnAppend');
+            btnAppend.addEventListener('click', writeRow);
+
+        }
+    </script>
+
+    <script src="https://apis.google.com/js/client.js?onload=checkAuth"></script>
+</head>
+
+<body>
+  <div id="title" class="page-header container">
+        <h1>Form</h1>
+  </div>
+
+  <pre id="output" class="container">
+
+  </pre>
+
+  <div class="container form-group">
+      <h1> Form! </h1>
+      <label for="Username">Username: </label> 
+      <input type="name" class="form-control" id="name" name="name" placeholder="Name"/>
+      <label for="PIN"> PIN </label>
+      <input type="text" class="form-control" id="major" name="major" placeholder="Major"/>
+    <button role="button" class="btn btn-primary" id='btnCreate'>
+        List
+    </button>
+    <button role="button" class="btn btn-primary" id='btnAppend'>
+        Append
+    </button>
+  </div>
+</body>
+
+</html>
