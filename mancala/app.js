@@ -1,6 +1,11 @@
 // JavaScript source code
+$('newGameForm').submit(function (e) {
+    e.preventDefault();
+    addGame();
+});
 
 function addTab() {
+    console.log("We adding2");
     var input = $('<input>').attr('id', 'gameName'); // Textbox to be added
 
     // Changing tab
@@ -12,7 +17,7 @@ function addTab() {
     input.focus();
 
     // Setting input dissapear
-    input.focusout(clearAddTab);
+    // input.focusout(clearAddTab);
 }
 
 function clearAddTab(cancelTab) {
@@ -27,6 +32,7 @@ function clearAddTab(cancelTab) {
 
 function addGame() {
     // Tab Stuff ------------------------------------------------------------
+    console.log("We adding");
     var gameName = $('#gameName');
     var name = gameName.val();
 

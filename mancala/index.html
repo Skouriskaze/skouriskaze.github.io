@@ -35,18 +35,14 @@
     <div class="container">
         <div class="col-md-3">
             <ul id="tabs" class="nav nav-pills nav-stacked">
-                <!--<li class="active"> <a data-toggle="tab" href="#first">First</a></li>-->
                 <li id="addItem" class="active" ><a id="addTab" data-toggle="tab" href="#addTab" onclick="addTab()">
                     <span id="newGameLabel">+</span>
-                    <form onsubmit="addGame()" id="newGameForm"></form>
+                    <form onsubmit="addGame(); return false;" id="newGameForm"></form>
                 </a> </li>
             </ul>
         </div>
         <div class="col-md-9">
             <div class="tab-content" id="tabContent">
-                <!--<div id="first" class="tab-pane fade in active">
-                    <h3>First</h3>
-                </div>-->
                 <div id="addTab" class="tab-pane fade in active">
                     <h3>Add a tab!</h3>
                 </div>
