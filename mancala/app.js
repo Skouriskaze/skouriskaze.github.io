@@ -66,7 +66,7 @@ function addGame() {
         var tabToAdd = $('<div>').attr('id', name).addClass('tab-pane fade');
         var canvas = $('<canvas>').attr('id', name + 'Canvas').attr('width', '720').attr('height', '360');
 
-        tabToAdd.append($('<h3>').text(name));
+        tabToAdd.append($('<h3>').attr('id', name + 'Title').text(name));
         tabToAdd.append(canvas);
 
         tabContent.append(tabToAdd);
@@ -133,7 +133,7 @@ function drawMancala(canvas, name) {
     });
 
     for (var i = 0; i < 6; i++) {
-        canvas.drawEllipse({
+        canvas.drawEllipse({ // Red pits
             layer: true,
             fillStyle: 'blue',
             x: 99 + (5 - i) * sixth + sixth / 2,
@@ -149,7 +149,7 @@ function drawMancala(canvas, name) {
             },
             name: 'red' + i.toString()
         });
-        canvas.drawText({
+        canvas.drawText({ // Red pit texts
             layer: true,
             align: 'center',
             fillStyle: 'white',
@@ -160,9 +160,7 @@ function drawMancala(canvas, name) {
             text: games[name].board['red'][i].toString(),
             name: 'tred' + i.toString()
         });
-    }
-    for (var i = 0; i < 6; i++) {
-        canvas.drawEllipse({
+        canvas.drawEllipse({ // Green pits
             layer: true,
             fillStyle: 'cyan',
             x: rectWidth + 2 * margin + i * sixth + sixth / 2,
@@ -178,7 +176,7 @@ function drawMancala(canvas, name) {
             },
             name: 'green' + i.toString()
         });
-        canvas.drawText({
+        canvas.drawText({ // Green pit texts
             layer: true,
             align: 'center',
             fillStyle: 'white',
@@ -193,6 +191,7 @@ function drawMancala(canvas, name) {
 }
 
 function performMove(name, canvas, move) {
+    console.log("Perform Move");
     var text = canvas.getLayer('t' + move.toString());
     var game = games[name];
     if (game.makeTurn(move)) {
@@ -217,6 +216,10 @@ function performMove(name, canvas, move) {
             });
         }
 
+        // Redrawing
+        $('#' + name + 'Title').text(name + ' ' + game.turn);
+        canvas.getLayer('tred').text = game.board['red'][6];
+        canvas.getLayer('tgreen').text = game.board['green'][6];
         for (var i = 0; i < 6; i++) {
             canvas.getLayer('tred' + i).text = game.board['red'][i];
             canvas.getLayer('tgreen' + i).text = game.board['green'][i];
