@@ -13,7 +13,6 @@ function inList(list, element) {
 }
 
 function addTab() {
-    console.log("We adding2");
     var input = $('<input>').attr('id', 'gameName'); // Textbox to be added
 
     // Changing tab
@@ -47,7 +46,6 @@ function addGame() {
     // Tab Stuff ------------------------------------------------------------
     var gameName = $('#gameName');
     var name = gameName.val().replace(/[^a-zA-Z]/g, '');
-    console.log(name);
     var tabExists = inList(tabList, name);
 
     if (!tabExists) {
@@ -191,7 +189,6 @@ function drawMancala(canvas, name) {
 }
 
 function performMove(name, canvas, move) {
-    console.log("Perform Move");
     var text = canvas.getLayer('t' + move.toString());
     var game = games[name];
     if (game.makeTurn(move)) {

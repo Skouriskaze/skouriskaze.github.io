@@ -3,22 +3,20 @@
 function Mancala(props) {
     if (!props) var props = {}
     this.board = {};
-    this.turn = "red";
+    this.turn = "green";
     this.board["green"] = {6: 0};
     this.board["red"] = {6: 0};
     for (var i = 0; i < 6; i++) {
-        this.board["red"][i] = props.initStones || 6;
-        this.board["green"][i] = props.initStones || 6;
+        this.board["red"][i] = props.initStones || 2;
+        this.board["green"][i] = props.initStones || 2;
     }
 
     this.makeTurn = function (move) {
-        console.log("Make Turn");
         if (move.color == this.turn) {
             // Moving tiles
             var num = this.board[move.color][move.rank];
             this.board[move.color][move.rank] = 0;
             if (!this.calculateNext(num, move)) {
-                console.log("Killed it");
                 this.turn = this.oppositeTurn();
             }
 
@@ -36,10 +34,13 @@ function Mancala(props) {
 
     this.calculateNext = function(num, spot) {
         if (num < 1) {
-            // Ended 
+            // Ended hand 
             if (spot.rank == 6) {
-                // Landed in the pit, turn again
                 return true;
+            } else if (this.getSpotValue(spot) > 1) {
+                var secondNum = this.getSpotValue(spot);
+                this.board[spot.color][spot.rank] = 0;
+                return this.calculateNext(secondNum, spot);
             } else {
                 return false;
             }
@@ -48,6 +49,12 @@ function Mancala(props) {
             var next;
             if (spot.rank + 1 > 6) {
                 next = new Pit(spot.color == 'green' ? 'red' : 'green', 0);
+            } else if (spot.rank == 5) {
+                if (this.turn != spot.color) {
+                    next = new Pit(spot.color == 'green' ? 'red' : 'green', 0);
+                } else {
+                    next = new Pit(spot.color, spot.rank + 1)
+                }
             } else {
                 next = new Pit(spot.color, spot.rank + 1)
             }
