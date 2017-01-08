@@ -49,9 +49,10 @@ function addGame() {
     var tabExists = inList(tabList, name);
 
     if (!tabExists) {
-    // Adding tab
+        // Adding tab
+        var canvas = $('<canvas>').attr('id', name + 'Canvas').attr('width', '720').attr('height', '360');
         tabList.push(name);
-        games[name] = new Mancala();
+        games[name] = new Mancala(canvas, {});
         var addItem = $('#addItem');
         var anchor = $('<a>')
             .attr('data-toggle', 'tab')
@@ -62,7 +63,6 @@ function addGame() {
         // Tab Content Stuff -----------------------------------------------------
         var tabContent = $('#tabContent');
         var tabToAdd = $('<div>').attr('id', name).addClass('tab-pane fade');
-        var canvas = $('<canvas>').attr('id', name + 'Canvas').attr('width', '720').attr('height', '360');
 
         tabToAdd.append($('<h3>').attr('id', name + 'Title').text(name));
         tabToAdd.append(canvas);
@@ -110,7 +110,7 @@ function drawMancala(canvas, name) {
         text: '0',
         fontSize: circleDiameter / 2,
         fontFamily: 'Verdana, sans-serif',
-        name: 'tred'
+        name: 'tred6'
     });
     canvas.drawRect({ // Green pit
         layer: true,
@@ -127,7 +127,7 @@ function drawMancala(canvas, name) {
         text: '0',
         fontSize: circleDiameter / 2,
         fontFamily: 'Verdana, sans-serif',
-        name: 'tgreen'
+        name: 'tgreen6'
     });
 
     for (var i = 0; i < 6; i++) {
@@ -215,11 +215,11 @@ function performMove(name, canvas, move) {
 
         // Redrawing
         $('#' + name + 'Title').text(name + ' ' + game.turn);
-        canvas.getLayer('tred').text = game.board['red'][6];
-        canvas.getLayer('tgreen').text = game.board['green'][6];
-        for (var i = 0; i < 6; i++) {
-            canvas.getLayer('tred' + i).text = game.board['red'][i];
-            canvas.getLayer('tgreen' + i).text = game.board['green'][i];
-        }
+        //canvas.getLayer('tred6').text = game.board['red'][6];
+        //canvas.getLayer('tgreen6').text = game.board['green'][6];
+        //for (var i = 0; i < 6; i++) {
+        //    canvas.getLayer('tred' + i).text = game.board['red'][i];
+        //    canvas.getLayer('tgreen' + i).text = game.board['green'][i];
+        //}
     }
 }

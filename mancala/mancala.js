@@ -1,14 +1,15 @@
 // JavaScript source code
 
-function Mancala(props) {
+function Mancala(canvas, props) {
     if (!props) var props = {}
     this.board = {};
+    this.canvas = canvas;
     this.turn = "green";
     this.board["green"] = {6: 0};
-    this.board["red"] = {6: 0};
+    this.board["red"] = { 6: 0 };
     for (var i = 0; i < 6; i++) {
-        this.board["red"][i] = props.initStones || 2;
-        this.board["green"][i] = props.initStones || 2;
+        this.board["red"][i] = props.initStones || 6;
+        this.board["green"][i] = props.initStones || 6;
     }
 
     this.makeTurn = function (move) {
@@ -32,34 +33,45 @@ function Mancala(props) {
         else return 'red';
     }
 
-    this.calculateNext = function(num, spot) {
+    this.calculateNext = function (num, spot) {
         if (num < 1) {
-            // Ended hand 
-            if (spot.rank == 6) {
-                return true;
-            } else if (this.getSpotValue(spot) > 1) {
-                var secondNum = this.getSpotValue(spot);
-                this.board[spot.color][spot.rank] = 0;
-                return this.calculateNext(secondNum, spot);
+            // We clicked on a 0. Give them their turn back.
+            return true;
+        } else {
+            var currSpot = spot;
+            this.board[currSpot.color][currSpot] = 0;
+            canvas.animateLayer('t' + currSpot.toString(), { text: this.getSpotValue(currSpot) }, 0);
+            for (var i = 0; i < num; i++) {
+                // Get the next spot
+                currSpot = this.getNextSpot(currSpot);
+
+                // Add one to the current spot
+                this.board[currSpot.color][currSpot.rank] += 1;
+
+                // Animate
+                this.canvas.delayLayer('t' + currSpot.toString(), 800 * i)
+                    .animateLayer('t' + currSpot.toString(), { y: '+=10' })
+                    .animateLayer('t' + currSpot.toString(), { y: '-=10' })
+                    .animateLayer('t' + currSpot.toString(), { text: this.getSpotValue(currSpot)}, 0);
+            }
+        }
+    }
+
+    this.getNextSpot = function (spot) {
+        if (spot.rank < 5) {
+            // Return next pit
+            return new Pit(spot.color, spot.rank + 1);
+        } else if (spot.rank == 5) {
+            if (spot.color == this.turn) {
+                // Return own color store
+                return new Pit(spot.color, spot.rank + 1)
             } else {
-                return false;
+                // Return start of other row
+                return new Pit(spot.color == 'green' ? 'red' : 'green', 0);
             }
         } else {
-            // Add one to the next spot
-            var next;
-            if (spot.rank + 1 > 6) {
-                next = new Pit(spot.color == 'green' ? 'red' : 'green', 0);
-            } else if (spot.rank == 5) {
-                if (this.turn != spot.color) {
-                    next = new Pit(spot.color == 'green' ? 'red' : 'green', 0);
-                } else {
-                    next = new Pit(spot.color, spot.rank + 1)
-                }
-            } else {
-                next = new Pit(spot.color, spot.rank + 1)
-            }
-            this.board[next.color][next.rank] = this.getSpotValue(next) + 1;
-            return this.calculateNext(num - 1, next);
+            // Return start of other row
+            return new Pit(spot.color == 'green' ? 'red' : 'green', 0);
         }
     }
 
