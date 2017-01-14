@@ -1,9 +1,8 @@
 // JavaScript source code
 
-function Mancala(canvas, props) {
+function Mancala(props) {
     if (!props) var props = {}
     this.board = {};
-    this.canvas = canvas;
     this.turn = "green";
     this.board["green"] = {6: 0};
     this.board["red"] = { 6: 0 };
@@ -16,8 +15,8 @@ function Mancala(canvas, props) {
         if (move.color == this.turn) {
             // Moving tiles
             var num = this.board[move.color][move.rank];
-            this.board[move.color][move.rank] = 0;
-            if (!this.calculateNext(num, move)) {
+            //this.board[move.color][move.rank] = 0;
+            if (this.calculateNext(num, move).length > 0) {
                 this.turn = this.oppositeTurn();
             }
 
@@ -36,24 +35,9 @@ function Mancala(canvas, props) {
     this.calculateNext = function (num, spot) {
         if (num < 1) {
             // We clicked on a 0. Give them their turn back.
-            return true;
+            return [[]];
         } else {
-            var currSpot = spot;
-            this.board[currSpot.color][currSpot] = 0;
-            canvas.animateLayer('t' + currSpot.toString(), { text: this.getSpotValue(currSpot) }, 0);
-            for (var i = 0; i < num; i++) {
-                // Get the next spot
-                currSpot = this.getNextSpot(currSpot);
 
-                // Add one to the current spot
-                this.board[currSpot.color][currSpot.rank] += 1;
-
-                // Animate
-                this.canvas.delayLayer('t' + currSpot.toString(), 800 * i)
-                    .animateLayer('t' + currSpot.toString(), { y: '+=10' })
-                    .animateLayer('t' + currSpot.toString(), { y: '-=10' })
-                    .animateLayer('t' + currSpot.toString(), { text: this.getSpotValue(currSpot)}, 0);
-            }
         }
     }
 
