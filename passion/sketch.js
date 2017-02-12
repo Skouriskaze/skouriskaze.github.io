@@ -14,7 +14,8 @@ function preload() {
 }
 
 function setup() {
-    createCanvas(640, 480);
+    createCanvas(img_easter.width, img_easter.height);
+    background(0);
 
     n_pieceColumns = 30;
     n_pieceRows = 15;

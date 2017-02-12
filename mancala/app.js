@@ -191,7 +191,7 @@ function drawMancala(canvas, name) {
 function performMove(name, canvas, move) {
     var text = canvas.getLayer('t' + move.toString());
     var game = games[name];
-    if (game.makeTurn(move)) {
+    if (game.makeTurn(move).length > 0) {
         if (move.color == "red") {
             canvas.animateLayer(text, {
                 y: '+=' + text.height,
