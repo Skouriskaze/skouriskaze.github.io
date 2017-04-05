@@ -15,15 +15,16 @@ function Mancala(props) {
         if (move.color == this.turn) {
             // Moving tiles
             var num = this.board[move.color][move.rank];
-            //this.board[move.color][move.rank] = 0;
-            if (this.calculateNext(num, move).length > 0) {
+            
+            var res = this.calculateNext(num, move);
+            if () {
                 this.turn = this.oppositeTurn();
             }
 
             // Moving next turn
-            return true;
+            return [1];
         } else {
-            return false;
+            return [];
         }
     }
 
