@@ -1,97 +1,338 @@
-<!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width", initial-scale="1">
-    <title> Jesse's Bootstrap </title>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width", initial-scale="1">
+<title>Website </title>
 
-    <script src="jquery-3.1.1.js"></script>
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-    <script src="https://apis.google.com/js/api.js"></script>
+<!-- CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" type="text/css" href="res/style.css">
+
+<!-- FONTS -->
+<link href="https://fonts.googleapis.com/css?family=Karla:400,400i,700,700i" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Gentium+Book+Basic:400,400i,700,700i" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Lato:700,700i,900,900i" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Muli" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=GFS+Didot" rel="stylesheet">
+
+
+<!-- Javascript -->
+<script src="jquery-3.1.1.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script language="javascript" type="text/javascript" src="jquery-ui.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.7/p5.min.js" integrity="sha256-hTadFyx999S2PaNVgI6MyGaojC6fzBZb2D5GibT/Fno=" crossorigin="anonymous"></script>
+
+<style>
+.cover {
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    overflow: hidden;
+    min-height: 600px;
+}
+#announcement_link {
+    position: absolute;
+    right: 0;
+    top: 20rem;
+    background: rgba(0, 154, 216, 0.7);
+    z-index: 1000;
+    padding: 10px 14px 10px 32px;
+    border-radius: 35px 0 0 35px;
+    cursor: pointer;
+    box-shadow: -2px 3px 5px 0 rgba(0, 0, 0, 0.1);
+    -webkit-transition: all 200ms ease-in-out;
+    -moz-transition: all 200ms ease-in-out;
+    -o-transition: all 200ms ease-in-out;
+    transition: all 200ms ease-in-out;
+}
+#announcement_link:hover {
+    background: rgba(0, 154, 216, 0.9);
+}
+#announcement_link p {
+    font-family: "Gentium Book Basic", serif;
+    font-style: italic;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.7);
+    line-height: 1.8rem;
+    font-size: 1.4rem;
+    margin: 0;
+    padding: 0;
+    text-align: left;
+    -webkit-transition: all 200ms ease-in-out;
+    -moz-transition: all 200ms ease-in-out;
+    -o-transition: all 200ms ease-in-out;
+    transition: all 200ms ease-in-out;
+}
+@media only screen
+and (min-width: 800px)
+and (-webkit-min-device-pixel-ratio: 1) {
+    #announcement_link {
+        top: 37vh;
+        padding: 12px 16px 12px 36px;
+        border-radius: 40px 0 0 40px;
+    }
+    #announcement_link p {
+        color: rgba(255, 255, 255, 0.7);
+        line-height: 2.0rem;
+        font-size: 1.6rem;
+    }
+}
+.content {
+    padding-top: 100px;
+}
+.panel-default {
+    border-color: gray;
+}
+.panel-default > .panel-heading {
+    background-color: black;
+    padding: 0px;
+}
+.panel-body, .panel-footer {
+    font-family: 'Open Sans', sans-serif;
+    color: white;
+    background: black;
+}
+.panel-small {
+    min-height: 200px;
+    height: 20%;
+    position: relative;
+}
+.panel-big {
+    min-height: 200px;
+    height: 70%;
+    position: relative;
+}
+.maundy_thursday {
+    background: url('res/img/easter1.jpg') 50% 50% no-repeat;
+    background-size: 100%;
+}
+
+.good_friday {
+    background: url('res/img/easter3_blue.jpg') 50% 50% no-repeat;
+    background-size: 100%;
+}
+
+.easter_day {
+    background: url('res/img/easter hand.png') 50% 50% no-repeat;
+    background-size: cover
+}
+
+.title {
+    position: absolute;
+    bottom: 10;
+    left: 10;
+    font-family: 'GFS Didot', serif;
+    font-style: italic;
+    color: white;
+}
+.title-small {
+    font-size: 200%;
+}
+.title-day {
+    font-size: 300%;
+}
+.container {
+    max-width: 1366px;
+}
+.easter {
+    color: black;
+}
+
+</style>
+
 </head>
+<body style="background-color:black">
 
-<body>
-    
-  <nav class="navbar navbar-default">
-    <div class="container-fluid">
-      <div class="navbar-header">
-        <a class="navbar-brand" href="#"><img src="res/Logo.jpg" width="28px"></a>
-      </div>
-      <ul class="nav navbar-nav">
-        <li class="active"> <a href="https://skouriskaze.github.io/"> Home </a></li>
-        <li> <a href="#title1"> Title 1 </a></li>
-        <li> <a href="#"> Page 2 </a></li>
-        <li> <a href="#"> Page 3 </a></li>
-      </ul>
+<!-- BEGIN HEADER -->
+<div id="JCA_logo">
+    <a href="/jca/index">
+        <!--<img class="active" src="/cache/img/jca_wordmark.svg">-->
+        <!--<img src="/cache/img/jca_logo.svg">-->
+    </a>
+</div>
+
+<div class="nav_bar">
+    <div class="nav_item">
+        <div class="nav_title"><a href="/jca/home?page=imnew">I'm New</a></div>
     </div>
-  </nav>
+    <div class="nav_item">
+        <div class="nav_title">About</div>
+        <div class="nav_link"><a href="/jca/home?page=ourstory">Our Story</a></div>
+        <div class="nav_link"><a href="/jca/home?page=beliefs">Beliefs</a></div>
+        <div class="nav_link"><a href="/jca/home?page=leadership">Leadership</a></div>
+    </div>
+    <div class="nav_item">
+        <div class="nav_title">Connect</div>
+        <div class="nav_link"><a href="/jca/home?page=worshipservices">Worship Services</a></div>
+        <div class="nav_link"><a href="/jca/home?page=familygroups">Family Groups</a></div>
+        <div class="nav_link"><a href="/jca/events">Events</a></div>
+        <div class="nav_link"><a href="/jca/home?page=college">College</a></div>
+        <div class="nav_link"><a href="/jca/home?page=kids">Kids</a></div>
+    </div>
+    <div class="nav_item">
+        <div class="nav_title">Missions</div>
+        <div class="nav_link"><a href="/jca/home?page=partners">Partners</a></div>
+        <div class="nav_link"><a href="/jca/home?page=trips">Mission Trips</a></div>
+    </div>
+    <div class="nav_item">
+        <div class="nav_title">Resources</div>
+        <div class="nav_link"><a href="/jca/sermons">Sermons</a></div>
+        <div class="nav_link"><a href="/jca/home?page=special">Special Content</a></div>
+    </div>
+    <div class="nav_item">
+        <div class="nav_title"><a href="/jca/home?page=give">Give</a></div>
+    </div>
+</div>
 
-  <div id="title" class="page-header container">
-        <h1> Jesse Huang</h1>
-  </div>
-  <div class="container">
-    <div class="row">
-      <div class="col-sm-8">
-        <h1 id="title1" >Title 1 </h1>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque sed
-          egestas quam. Phasellus velit velit, consequat eget tellus a,
-          condimentum placerat turpis. Maecenas in nisl venenatis, vulputate est
-          et, tincidunt elit. Proin ac commodo orci, vitae maximus velit. Nullam
-          imperdiet enim non orci ornare euismod. Sed non elit eu velit facilisis
-          elementum sed quis lectus. Proin nec tortor nec ligula vestibulum porta
-          eu porttitor mi. Duis commodo condimentum leo, vitae ullamcorper ante
-          maximus ut. Nunc ullamcorper lorem venenatis commodo volutpat. Morbi
-          luctus pharetra tincidunt.</p>
-        </div>
-      </div>
-  </div>
+<div class="nav_bar_mobile">
+    <div class="nav_menu_icon">
+        <!--<div id="open_nav" class="active"><img src="/cache/img/menu_white.svg"></div>-->
+        <!--<div id="close_nav"><img src="/cache/img/cancel_black.svg"></div>-->
+    </div>
 
-  <div class="container">
-    <h1 id="title2"> Title 2 </h1>
-    <div id="columns" class="row">
-        <div class="col-sm-4">
-            <h2> Subtitle 1</h2>
-            <p> Some more lorem ipsum text should go here,
-            but I"m a little too lazy to do that. So instead, you have me
-            blabbering here. Becuase I need a few more lines, a few filler words go
-            here. And another couple of lines to make things look nice and even.
-            </p> 
+    <div class="nav_content_mobile">
+        <div class="nav_item">
+            <div class="nav_title"><a href="/jca/home?page=imnew">I'm New</a></div>
         </div>
-        <div class="col-sm-8">
-            <h2> Subtitle 2 </h2>
-              <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque sed
-                  egestas quam. Phasellus velit velit, consequat eget tellus a,
-                  condimentum placerat turpis. Maecenas in nisl venenatis, vulputate est
-                  et, tincidunt elit. Proin ac commodo orci, vitae maximus velit. Nullam
-                  imperdiet enim non orci ornare euismod. Sed non elit eu velit facilisis
-                  elementum sed quis lectus. Proin nec tortor nec ligula vestibulum porta
-                  eu porttitor mi. Duis commodo condimentum leo, vitae ullamcorper ante
-                  maximus ut. Nunc ullamcorper lorem venenatis commodo volutpat. Morbi
-                  luctus pharetra tincidunt. 
-              </p> 
+        <div class="nav_item">
+            <div class="nav_title">About</div>
+            <div class="nav_link"><a href="/jca/home?page=ourstory">Our Story</a></div>
+            <div class="nav_link"><a href="/jca/home?page=beliefs">Beliefs</a></div>
+            <div class="nav_link"><a href="/jca/home?page=leadership">Leadership</a></div>
+        </div>
+        <div class="nav_item">
+            <div class="nav_title">Connect</div>
+            <div class="nav_link"><a href="/jca/home?page=worshipservices">Worship Services</a></div>
+            <div class="nav_link"><a href="/jca/home?page=familygroups">Family Groups</a></div>
+            <div class="nav_link"><a href="/jca/events">Events</a></div>
+            <div class="nav_link"><a href="/jca/home?page=college">College</a></div>
+            <div class="nav_link"><a href="/jca/home?page=kids">Kids</a></div>
+        </div>
+        <div class="nav_item">
+            <div class="nav_title">Missions</div>
+            <div class="nav_link"><a href="/jca/home?page=partners">Partners</a></div>
+            <div class="nav_link"><a href="/jca/home?page=trips">Mission Trips</a></div>
+        </div>
+        <div class="nav_item">
+            <div class="nav_title">Resources</div>
+            <div class="nav_link"><a href="/jca/sermons">Sermons</a></div>
+            <div class="nav_link"><a href="/jca/home?page=special">Special Content</a></div>
+        </div>
+        <div class="nav_item">
+            <div class="nav_title"><a href="/jca/home?page=give">Give</a></div>
         </div>
     </div>
-  </div>
+</div>
+<!-- END HEADER -->
 
-  <form class="container" action="game/mobile.html" method="GET">
-      <div class="form-group">
-          <h1> Form! </h1>
-          <label for="Username">Username: </label> 
-          <input type="name" class="form-control" id="username" name="username" placeholder="Username"/>
-          <label for="PIN"> PIN </label>
-          <input type="number" class="form-control" id="pin" name="pin" placeholder="PIN"/>
-        <button role="button" class="btn btn-primary">
-            Create
-        </button>
-        <button role="button" class="btn btn-primary">
-            Login
-        </button>
-      </div>
+<!-- BEGIN ANNOUNCEMENTS -->
+<div id="announcement_link">
+    <p>Click here for<br>announcements</p>
+</div>
+<!-- END ANNOUNCEMENTS -->
+
+<!-- BEGIN CONTENT -->
+<div class="cover container content">
+    <!-- <div class="full_container" id="canvas_holder"> -->
+
+    <!-- </div> -->
+    <div class="panel-group">
+        <!-- MAUDY THURSDAY -->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <a data-toggle="collapse" href="#maundy_thursday_content">
+                    <h1 class="panel-title panel-small maundy_thursday ">
+                        <div class="title">
+                            <span class="title-small">Maundy</span><br/>
+                            <span class="title-day">THURSDAY</span>
+                        </div>
+                    </h1>
+                </a>
+            </div>
+            <div id="maundy_thursday_content" class="panel-collapse collapse">
+                <div class="panel-body">Maundy Thursday Body</div>
+                <div class="panel-footer">Maundy Thursday Footer</div>
+            </div>
+        </div>
+        <!-- END MAUNDY THURSDAY -->
+
+        <!-- GOOD FRIDAY -->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <a data-toggle="collapse" href="#good_friday_content">
+                    <h1 class="panel-title panel-small good_friday">
+                        <div class="title">
+                            <span class="title-small">Good</span><br/>
+                            <span class="title-day">FRIDAY</span>
+                        </div>
+                    </h1>
+                </a>
+            </div>
+            <div id="good_friday_content" class="panel-collapse collapse">
+                <div class="panel-body">Good Friday Body</div>
+                <div class="panel-footer">Good Friday Footer</div>
+            </div>
+        </div>
+        <!-- END GOOD FRIDAY -->
+
+        <!-- EASTER -->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <a data-toggle="collapse" href="#easter_content">
+                    <h1 class="panel-title panel-big easter_day">
+                        <div class="title">
+                            <span class="title-small easter">Easter</span><br/>
+                            <span class="title-day easter">SUNDAY</span>
+                        </div>
+                    </h1>
+                </a>
+            </div>
+            <div id="easter_content" class="panel-collapse collapse">
+                <div class="panel-body">Easter Body</div>
+                <div class="panel-footer">Easter Footer</div>
+            </div>
+        </div>
+        <!-- EASTER -->
+    </div>
+</div>
+
+
+<!-- END CONTENT -->
+
+
+<!-- BEGIN FOOTER -->
+<div class="footer">
+    <div class="container">
+        <div class="four column" style="text-align: left;">
+            <h4>SUNDAY 11:00 AM at MIDTOWN</h4>
+            <p><a href="/jca/home?page=college">Click for transportation details</a><br>
+            GT Architecture East Auditorium<br>
+            245 Fourth Street NW<br>
+            Atlanta, GA 30332</p>
+        </div> <!-- </div class="four column" style="text-align: left;"> -->
+        <div class="four column" style="text-align: left;">
+            <h4>SUNDAY 1:30 PM at EASTSIDE</h4>
+            <p><a href="/jca/home?page=kids">Click for children ministry details</a><br>
+            Westminster Presbyterian Church<br>
+            1438 Sheridan Rd NE<br>
+            Atlanta, GA 30324</p>
+        </div> <!-- </div class="four column" style="text-align: left;"> -->
+        <div class="four column" style="text-align: left;">
+            <h4>MAILING ADDRESS</h4>
+            <p>The Journey Church of Atlanta<br>
+            PO Box 15575, Atlanta, GA 30333</p>
+        </div> <!-- </div class="four column" style="text-align: left;"> -->
+        <br>
+        <div class="twelve column" style="text-align: center; margin-top: 50px">
+            <h4>A member of <a target="_blank" href="http://www.amichurches.com/">Acts Ministries International</a></h4>
+        </div> <!-- </div class="twelve column" style="text-align: center; margin-top: 50px"> -->
+    </div> <!-- </div class="container"> -->
+</div> <!-- </div class="footer"> -->
+<!-- END FOOTER -->
+
+<script src="sketch.js"> </script>
 </body>
-
 </html>
