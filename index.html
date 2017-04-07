@@ -83,16 +83,25 @@ and (-webkit-min-device-pixel-ratio: 1) {
     padding-top: 100px;
 }
 .panel-default {
-    border-color: gray;
+    border: none;
+    // border-color: gray;
 }
 .panel-default > .panel-heading {
     background-color: black;
     padding: 0px;
 }
-.panel-body, .panel-footer {
+.panel-collapse {
+    border: 1px solid;
+    border-color: white;
+}
+.panel-body, .panel-footer, .map_link {
     font-family: 'Open Sans', sans-serif;
     color: white;
     background: black;
+    // border: 1px solid;
+}
+.map_link {
+    text-decoration: underline;
 }
 .panel-small {
     min-height: 200px;
@@ -123,7 +132,7 @@ and (-webkit-min-device-pixel-ratio: 1) {
     position: absolute;
     bottom: 10;
     left: 10;
-    font-family: 'GFS Didot', serif;
+    font-family: 'Open Sans', sans-serif;
     font-style: italic;
     color: white;
 }
@@ -245,15 +254,23 @@ and (-webkit-min-device-pixel-ratio: 1) {
                 <a data-toggle="collapse" href="#maundy_thursday_content">
                     <h1 class="panel-title panel-small maundy_thursday ">
                         <div class="title">
-                            <span class="title-small">Maundy</span><br/>
-                            <span class="title-day">THURSDAY</span>
+                            <div class="title-small">Maundy</div>
+                            <div class="title-day">THURSDAY</div>
                         </div>
                     </h1>
                 </a>
             </div>
             <div id="maundy_thursday_content" class="panel-collapse collapse">
-                <div class="panel-body">Maundy Thursday Body</div>
-                <div class="panel-footer">Maundy Thursday Footer</div>
+                <div class="panel-body">
+                    <a class="map_link" target="_blank" href="https://www.google.com/maps/place/2059+Lavista+Rd+NE,+Atlanta,+GA+30329/@33.8150452,-84.3199524,17z/data=!3m1!4b1!4m5!3m4!1s0x88f5064e98b9b933:0x21c26ee72a4d3f6a!8m2!3d33.8150452!4d-84.3177637">
+                        Maundy Thursday @ 8:00 PM <br/>
+                        Intown Community Church <br/>
+                        2059 Lavista Rd NE, Atlanta, GA 30329
+                    </a>
+                </div>
+                <div class="panel-footer">
+                    Maundy Thursday Footer
+                </div>
             </div>
         </div>
         <!-- END MAUNDY THURSDAY -->
@@ -264,15 +281,23 @@ and (-webkit-min-device-pixel-ratio: 1) {
                 <a data-toggle="collapse" href="#good_friday_content">
                     <h1 class="panel-title panel-small good_friday">
                         <div class="title">
-                            <span class="title-small">Good</span><br/>
-                            <span class="title-day">FRIDAY</span>
+                            <div class="title-small">Good</div>
+                            <div class="title-day">FRIDAY</div>
                         </div>
                     </h1>
                 </a>
             </div>
             <div id="good_friday_content" class="panel-collapse collapse">
-                <div class="panel-body">Good Friday Body</div>
-                <div class="panel-footer">Good Friday Footer</div>
+                <div class="panel-body">
+                    <a class="map_link" target="_blank" href="https://www.google.com/maps/place/2674+Johnson+Rd+NE,+Atlanta,+GA+30345/@33.8640981,-84.2946368,17z/data=!3m1!4b1!4m5!3m4!1s0x88f5086a947600ff:0xbfe05beec9939885!8m2!3d33.8640981!4d-84.2924481">
+                        Good Friday @ 8:00 PM <br />
+                        St. Pius X High School <br />
+                        2674 Johnson Rd NE, Atlanta, GA 30345
+                    </a>
+                </div>
+                <div class="panel-footer">
+                    Good Friday Footer
+                </div>
             </div>
         </div>
         <!-- END GOOD FRIDAY -->
@@ -283,15 +308,23 @@ and (-webkit-min-device-pixel-ratio: 1) {
                 <a data-toggle="collapse" href="#easter_content">
                     <h1 class="panel-title panel-big easter_day">
                         <div class="title">
-                            <span class="title-small easter">Easter</span><br/>
-                            <span class="title-day easter">SUNDAY</span>
+                            <div class="title-small easter">Easter</div>
+                            <div class="title-day easter">SUNDAY</div>
                         </div>
                     </h1>
                 </a>
             </div>
             <div id="easter_content" class="panel-collapse collapse">
-                <div class="panel-body">Easter Body</div>
-                <div class="panel-footer">Easter Footer</div>
+                <div class="panel-body">
+                    <a class="map_link" target="_blank" href="https://www.google.com/maps/place/2674+Johnson+Rd+NE,+Atlanta,+GA+30345/@33.8640981,-84.2946368,17z/data=!3m1!4b1!4m5!3m4!1s0x88f5086a947600ff:0xbfe05beec9939885!8m2!3d33.8640981!4d-84.2924481">
+                        Resurrection Sunday @ 10:30 AM <br />
+                        St. Pius X High School <br />
+                        2674 Johnson Rd NE, Atlanta, GA 30345
+                    </a>
+                </div>
+                <div class="panel-footer">
+                    Easter Footer
+                </div>
             </div>
         </div>
         <!-- EASTER -->
