@@ -91,8 +91,11 @@ and (-webkit-min-device-pixel-ratio: 1) {
     padding: 0px;
 }
 .panel-collapse {
-    border: 1px solid;
-    border-color: white;
+    // border: 1px solid;
+    // border-color: gray;
+}
+.panel-group .panel-heading+.panel-collapse>.panel-body {
+    border-top: 0px;
 }
 .panel-body, .panel-footer, .map_link {
     font-family: 'Open Sans', sans-serif;
